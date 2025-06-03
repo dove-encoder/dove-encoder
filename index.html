@@ -115,7 +115,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title" style="margin-bottom: 2rem;">Images are Worth Variable Numbers of Tokens</h1>
+            <h1 class="title is-1 publication-title" style="margin-bottom: 2.5rem; font-size: 2.9rem;">Images are Worth Variable Length of Representations</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
               <a href="" style="color:#f68946;font-weight:normal;">Lingjun Mao<sup>1</sup></a>,
@@ -226,7 +226,7 @@
           <p style="text-align: justify;" width="70%">
             Most existing vision encoders map images into a fixed-length sequence of tokens, overlooking the fact that different images contain varying amounts of information. 
             For example, a visually complex image (e.g., a cluttered room) inherently carries more information and thus deserves more tokens than a simple image (e.g., a blank wall). 
-            To address this inefficiency, We propose <strong>DOVE</strong>, a <strong>D</strong>ynamic <strong>O</strong>utput <strong>V</strong>ision <strong>E</strong>ncoder that produces a variable number of tokens to reconstruct each image. 
+            To address this inefficiency, We propose <strong>DOVE</strong>, a <strong>D</strong>ynamic <strong>O</strong>utput <strong>V</strong>ision <strong>E</strong>ncoder that produces a variable number of visual tokens (i.e., continuous representation vectors) to reconstruct each image. 
             Our results show that DOVE significantly reduces the average number of tokens while maintaining high reconstruction quality. 
             In several linear probing and downstream multimodal tasks, it outperforms existing autoencoder-based tokenization methods when using far fewer tokens, capturing more expressive semantic features compared to fixed-length encoding. 
             We further extend DOVE with query-conditioned tokenization. By guiding the model to focus on query-relevant regions, it achieves more efficient and targeted semantic extraction.
@@ -280,7 +280,7 @@
   <div class="column is-full-width">
     <div class="content has-text-justified">
       <p>
-        DOVE consists of a VQGAN encoder-decoder, a transformer-based dynamic token generator, and a non-autoregressive token decoder. The model first extracts visual features using the VQGAN encoder, combines them with timestep embeddings, and feeds them into the token generator to produce a variable-length sequence of visual tokens. By predicting an EOS token, the model learns to truncate redundant tokens automatically. During training, we jointly optimize image reconstruction quality and EOS prediction, encouraging shorter token sequences while maintaining reconstruction quality.
+        DOVE consists of a VQGAN encoder-decoder, a transformer-based dynamic token generator, and a non-autoregressive token decoder. The model first extracts visual features using the VQGAN encoder, combines them with timestep embeddings, and feeds them into the token generator to produce a variable-length sequence of continuous visual tokens. By predicting an EOS token, the model learns to truncate redundant tokens automatically. During training, we jointly optimize image reconstruction quality and EOS prediction, encouraging shorter token sequences while maintaining reconstruction quality.
 
 
   <div style="text-align: center;">

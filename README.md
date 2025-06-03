@@ -1,4 +1,4 @@
-# Images are Worth Variable Numbers of Tokens
+# Images are Worth Variable Length of Representations
 
 Authors: Lingjun Mao, Rodolfo Corona, Xin Liang, Wenhao Yan, Zineng Tang†
 
