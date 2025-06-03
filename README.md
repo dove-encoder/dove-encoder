@@ -1,33 +1,17 @@
-# Biomedical Visual Instruction Tuning with Clinician Preference Alignment
+# Images are Worth Variable Numbers of Tokens
 
-Authors: Hejie Cui, Lingjun Mao, Xin Liang, Jieyu Zhang, Hui Ren<, Quanzheng Li, Xiang Li, Carl Yang
+Authors: Lingjun Mao, Rodolfo Corona, Xin Liang, Wenhao Yan, Zineng Tang†
 
 ---
 
-![Biomed-VITAL Framework Overview](https://raw.githubusercontent.com/BioMed-VITAL/BioMed-VITAL.github.io/main/images/updated_instruction_data_framework_00.png) 
+![DOVE Framework Overview](https://raw.githubusercontent.com/dove-encoder/dove-encoder/refs/heads/main/images/DOVE_Results_00.png) 
 
 ## Abstract
 
-Recent advancements in multimodal foundation models have showcased impressive capabilities in understanding and reasoning with visual and textual information. Adapting these foundation models trained for general usage to specialized domains like biomedicine requires large-scale domain-specific instruction datasets. While existing works have explored curating such datasets automatically, the resultant datasets are not explicitly aligned with domain expertise.
-
-In this work, we propose a data-centric framework, **Biomedical Visual Instruction Tuning with Clinician Preference Alignment (BioMed-VITAL)**, that incorporates clinician preferences into both stages of generating and selecting instruction data for tuning biomedical multimodal foundation models. During the generation stage, we prompt the GPT-4V generator with a diverse set of clinician-selected demonstrations for preference-aligned data candidate generation. Then, during the selection phase, we train a separate selection model, which explicitly distills clinician and policy-guided model preferences into a rating function to select high-quality data for medical instruction tuning.
-
-Results show that the model tuned with the instruction-following data from our method demonstrates a significant improvement in open visual chat (18.5% relatively) and medical VQA (win rate up to 81.73%).
+Most existing vision encoders map images into a fixed-length sequence of tokens, overlooking the fact that different images contain varying amounts of information. For example, a visually complex image (e.g., a cluttered room) inherently carries more information and thus deserves more tokens than a simple image (e.g., a blank wall). To address this inefficiency, We propose **DOVE**, a **D**ynamic **O**utput **V**ision **E**ncoder that produces a variable number of tokens to reconstruct each image. Our results show that DOVE significantly reduces the average number of tokens while maintaining high reconstruction quality. In several linear probing and downstream multimodal tasks, it outperforms existing autoencoder-based tokenization methods when using far fewer tokens, capturing more expressive semantic features compared to fixed-length encoding. We further extend DOVE with query-conditioned tokenization. By guiding the model to focus on query-relevant regions, it achieves more efficient and targeted semantic extraction.
 
 ## Contributions
 
-1. We introduce a data-centric framework **BioMed-VITAL**, which generates and selects instruction-following data aligned with clinician preference for visual instruction tuning. Evaluation indicates an improved data quality and our instruction-tuned models remarkably improve in both open visual chat (18.5% relatively) and three biomedical VQA benchmarks (win rate up to 81.73%).
-2. We propose a paradigm involving clinician preference during generation and an effective data selection model based on a mixture of preferences. It is shown that our distilled data selection model excels in matching human preferences compared with judgments of GPT-4.
-3. To facilitate further study, we release 80K clinician preference-aligned instruction-following datasets generated and selected from ours, along with the models instruction-tuned based on them.
-
----
-
-## Case Study
-### Biomedical Visual Instruction-Following Example
-![](https://raw.githubusercontent.com/BioMed-VITAL/BioMed-VITAL.github.io/main/images/case_update2_00.png) 
-### Biomedical VQA Benchmark
-![](https://raw.githubusercontent.com/BioMed-VITAL/BioMed-VITAL.github.io/main/images/case5_updated_00.png) 
-### Clinician Annotation Examples
-![](https://raw.githubusercontent.com/BioMed-VITAL/BioMed-VITAL.github.io/main/images/appendixH_00.png) 
-
-For more information, access to the dataset, and to contribute, please visit our [GitHub repository](https://github.com/yourrepo/biomed-vital).
+1. We propose DOVE, a visual tokenizer that dynamically generates tokens based on image complexity. Unlike previous visual tokenization, our model supports arbitrary control over the token sequence length in a single parallel forward.
+2. We propose a variant of DOVE that grounds token generation on a text query and its corresponding salient visual regions. This query-conditioned model achieves a higher token compression rate (averaging 68%) and demonstrates stronger semantic representation.
+3. We observe a phenomenon of emergent semantics by probing the latent representation. Compared to other autoencoder-based tokenization methods with fixed-length token representations, our model achieves significantly better performance on classification, vision-language QA, and shows emerging semantic segmentation properties.
